@@ -6,15 +6,15 @@
 #define MIPT_ALGO2017_RAY_TRACING_VECTOR_H
 
 #include "GeomFloat.h"
+#include "Point.h"
 
-namespace Geometry {
-
-    using GeomFloat::Float;
-
-    class Vector
+namespace Geometry
+{
+    class Vector: public Point
     {
     public:
         explicit Vector(Float x = 0, Float y = 0, Float z = 0);
+        explicit Vector(const Point &point);
         Vector operator+(const Vector &other) const;
         Vector operator-(const Vector &other) const;
         Float dotProduct(const Vector &other) const;
@@ -27,7 +27,6 @@ namespace Geometry {
         Vector setLength(Float len) const;
 
     protected:
-        Float x_, y_, z_;
     };
 
 

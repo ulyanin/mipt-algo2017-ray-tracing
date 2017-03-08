@@ -7,7 +7,7 @@
 
 #include <cmath>
 
-namespace GeomFloat
+namespace Geometry
 {
     typedef double Float;
 
@@ -51,7 +51,7 @@ namespace GeomFloat
         return lessOrEqual(b, a);
     }
 
-} //GeomFloat
+} //Geometry
 
 
 #endif //MIPT_ALGO2017_RAY_TRACING_FLOAT_H
