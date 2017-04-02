@@ -18,4 +18,39 @@ namespace Geometry
         os << "(" << point.x_ << " " << point.y_ << " " << point.z_ << ")";
         return os;
     }
+
+    Point Point::operator+(const Vector &v) const
+    {
+        return Point(x_ + v.x_, y_ + v.y_, z_ + v.z_);
+    }
+
+    Point Point::operator-(const Vector &v) const
+    {
+        return Point(x_ - v.x_, y_ - v.y_, z_ - v.z_);
+    }
+
+    Float Point::getX() const
+    {
+        return x_;
+    }
+
+    Float Point::getY() const
+    {
+        return y_;
+    }
+
+    Float Point::getZ() const
+    {
+        return z_;
+    }
+
+    Point Point::operator+(const Point &p) const
+    {
+        return Point(x_ + p.x_, y_ + p.y_, z_ + p.z_);
+    }
+
+    Point Point::operator-(const Point &p) const
+    {
+        return Point(x_ - p.x_, y_ - p.y_, z_ - p.z_);
+    }
 }

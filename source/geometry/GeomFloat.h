@@ -6,13 +6,19 @@
 #define MIPT_ALGO2017_RAY_TRACING_FLOAT_H
 
 #include <cmath>
+#include <iostream>
+#include <algorithm>
 
 namespace Geometry
 {
     typedef double Float;
 
-
     const Float EPS = 1e-8;
+
+    inline Float absGeomFloat(Float f)
+    {
+        return std::abs(f);
+    }
 
     template <class T>
     inline T sqr(const T& v)
@@ -27,11 +33,12 @@ namespace Geometry
 
     inline bool equal(Float a, Float b)
     {
-        return fabsl(a - b) < EPS;
+        return absGeomFloat(a - b) < EPS;
     }
 
 
-    inline bool less(Float a, Float b) {
+    inline bool less(Float a, Float b)
+    {
         return a + EPS < b;
     }
 
@@ -50,6 +57,16 @@ namespace Geometry
     {
         return lessOrEqual(b, a);
     }
+
+    inline int sign(Float f)
+    {
+        if (greater(f, 0))
+            return 1;
+        if (less(f, 0))
+            return -1;
+        return 0;
+    }
+
 
 } //Geometry
 

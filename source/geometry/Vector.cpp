@@ -15,15 +15,15 @@ namespace Geometry
             Point(point)
     {}
 
-    Geometry::Vector Geometry::Vector::operator+(const Geometry::Vector &other) const
-    {
-        return Geometry::Vector(x_ + other.x_, y_ + other.y_, z_ + other.z_);
-    }
-
-    Geometry::Vector Geometry::Vector::operator-(const Geometry::Vector &other) const
-    {
-        return Geometry::Vector(x_ - other.x_, y_ - other.y_, z_ - other.z_);
-    }
+//    Geometry::Vector Geometry::Vector::operator+(const Geometry::Vector &other) const
+//    {
+//        return Geometry::Vector(x_ + other.x_, y_ + other.y_, z_ + other.z_);
+//    }
+//
+//    Geometry::Vector Geometry::Vector::operator-(const Geometry::Vector &other) const
+//    {
+//        return Geometry::Vector(x_ - other.x_, y_ - other.y_, z_ - other.z_);
+//    }
 
     Geometry::Float Geometry::Vector::dotProduct(const Geometry::Vector &other) const
     {
@@ -48,6 +48,8 @@ namespace Geometry
     Geometry::Vector Geometry::Vector::norm() const
     {
         Float len = this->length();
+        if (Geometry::equal(len, 0))
+            return *this;
         return Geometry::Vector(x_ / len, y_ / len, z_ / len);
     }
 
@@ -69,6 +71,15 @@ namespace Geometry
     Geometry::Vector Geometry::Vector::setLength(Geometry::Float len) const
     {
         return this->norm().enlarge(len);
+    }
+
+    Vector::Vector(const Point &begin, const Point &end):
+            Point(end - begin)
+    { }
+
+    bool Vector::ortogonal(const Vector &other) const
+    {
+        return Geometry::equal(this->dotProduct(other), 0);
     }
 
 }

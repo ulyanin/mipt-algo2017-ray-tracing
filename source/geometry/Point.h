@@ -17,6 +17,13 @@ namespace Geometry
     public:
         explicit Point(Float x=0, Float y=0, Float z=0);
         Point(const Point &p) = default;
+        Point operator+(const Point &p) const;
+        Point operator-(const Point &p) const;
+        Point operator+(const Vector &v) const;
+        Point operator-(const Vector &v) const;
+        Float getX() const;
+        Float getY() const;
+        Float getZ() const;
         friend std::ostream&operator<<(std::ostream &os, const Point &point);
     protected:
         Float x_, y_, z_;

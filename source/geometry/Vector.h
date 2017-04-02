@@ -15,8 +15,9 @@ namespace Geometry
     public:
         explicit Vector(Float x = 0, Float y = 0, Float z = 0);
         explicit Vector(const Point &point);
-        Vector operator+(const Vector &other) const;
-        Vector operator-(const Vector &other) const;
+        Vector(const Point &begin, const Point &end);
+//        Vector operator+(const Vector &other) const;
+//        Vector operator-(const Vector &other) const;
         Float dotProduct(const Vector &other) const;
         Vector crossProduct(const Vector &other) const;
         static Float tripleProduct(const Vector &a, const Vector &b, const Vector &c);
@@ -25,6 +26,7 @@ namespace Geometry
         Vector norm() const;
         Vector enlarge(Float mul) const;
         Vector setLength(Float len) const;
+        bool ortogonal(const Vector &other) const;
 
     protected:
     };
