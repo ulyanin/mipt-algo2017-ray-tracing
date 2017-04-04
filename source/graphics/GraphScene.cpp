@@ -22,28 +22,61 @@ void GraphScene::drawScene()
 {
     int width = 1000;
     int height = 800;
-    for (int x = -100; x < width; ++x) {
-        for (int y = -100; y < height; ++y) {
+    for (int x = -50; x < width; ++x) {
+        for (int y = -50; y < height; ++y) {
             Geometry::Ray ray(Geometry::Point(x, y, 0), Geometry::Vector(0, 0, 1));
-            Geometry::Point nearest;
-            int brightness = -1;
-            for (IGraphObject * obj : objects_) {
-                Geometry::Ray normal;
-                if (obj->intersection(ray, normal)) {
-//                    std::cout << x << " " << y << " " << normal.getDirect().dotProduct(ray.getDirect()) << std::endl;
-                    if (brightness == -1 || Geometry::Vector(normal.getBegin(), ray.getBegin()).length2() <
-                        Geometry::Vector(nearest, ray.getBegin()).length2()) {
-                        nearest = normal.getBegin();
-                        brightness = (int) (-normal.getDirect().dotProduct(ray.getDirect().norm()) * 255);
-                    }
-                }
-            }
-            if (brightness != -1) {
-                QPen pen(QColor(brightness, brightness, brightness, 255));
-                QBrush brush;
-                scene_.addEllipse(x, y, 1, 1, pen, brush);
-            }
+            drawPoint(x, y, traceRay(ray));
         }
     }
     view_.show();
+}
+
+QColor GraphScene::calcColor(const Geometry::Ray &normal) const
+{
+    Geometry::Vector vectorIntensity;
+    for (Illuminant* illuminant : illuminants) {
+        Geometry::Ray rayDirect = illuminant->getRayTo(normal.getBegin());
+        Geometry::Ray traced = traceRay(rayDirect);
+        if (traced.getDirect().isNull()) {
+            continue;
+        }
+        if (traced.getBegin() == normal.getBegin()) {
+            vectorIntensity += normal.getDirect().getProjection(rayDirect.getDirect());
+        }
+    }
+//    std::cout << vectorIntensity.length2() << std::endl;
+    int brightness = (int)(255 * std::min((Geometry::Float)1, vectorIntensity.length2()));
+    if (brightness < 0) {
+        std::cerr << "wrong brightness" << std::endl;
+    }
+    brightness = std::max(brightness, 0);
+    brightness = abs(brightness);
+    return QColor(brightness, brightness, brightness);
+}
+
+void GraphScene::drawPoint(int x, int y, const Geometry::Ray &normal)
+{
+    scene_.addEllipse(x, -y, 1, 1, calcColor(normal), brush_);
+}
+
+Geometry::Ray GraphScene::traceRay(const Geometry::Ray &ray) const
+{
+    Geometry::Ray nearest;
+    bool wasIntersection = false;
+    for (IGraphObject * obj : objects_) {
+        Geometry::Ray normal;
+        if (obj->intersection(ray, normal)) {
+            if (!wasIntersection || Geometry::Vector(normal.getBegin(), ray.getBegin()).length2() <
+                                    Geometry::Vector(nearest.getBegin(), ray.getBegin()).length2()) {
+                wasIntersection = true;
+                nearest = normal;
+            }
+        }
+    }
+    return nearest;
+}
+
+void GraphScene::addIlluminant(Illuminant *illuminant)
+{
+    illuminants.push_back(illuminant);
 }

@@ -18,9 +18,10 @@ namespace Geometry
         explicit Point(Float x=0, Float y=0, Float z=0);
         Point(const Point &p) = default;
         Point operator+(const Point &p) const;
-        Point operator-(const Point &p) const;
+        Vector operator-(const Point &p) const;
         Point operator+(const Vector &v) const;
         Point operator-(const Vector &v) const;
+        bool operator==(const Point &other) const;
         Float getX() const;
         Float getY() const;
         Float getZ() const;

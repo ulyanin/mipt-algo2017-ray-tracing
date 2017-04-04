@@ -41,8 +41,8 @@ namespace Geometry
     bool Triangle::betweenVectors(const Point &A, const Point &B, const Point &C, const Point &point)
     {
         Vector v1(B, A);
-        Vector v2(C, A);
-        Vector v(point, A);
+        Vector v2(B, C);
+        Vector v(point, B);
         return greaterOrEqual(v1.crossProduct(v).dotProduct(v.crossProduct(v2)), 0);
     }
 

@@ -24,7 +24,7 @@ namespace Geometry
                 ray.getBegin() +
                         ray.getDirect().setLength(Geometry::absGeomFloat(len))
         );
-        normal.setDirect(normal_.norm());
+        normal.setDirect(normal_.norm().enlarge(-1));
 //        normal.setDirect(normal_.enlarge(-sign(cosAlpha)));
         return onSurface(normal.getBegin());
     }

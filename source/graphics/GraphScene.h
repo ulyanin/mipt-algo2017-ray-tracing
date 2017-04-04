@@ -17,10 +17,15 @@ class GraphScene
 public:
     GraphScene(QObject * parent = Q_NULLPTR);
     void addObject(IGraphObject * object);
+    void addIlluminant(Illuminant * illuminant);
+    Geometry::Ray traceRay(const Geometry::Ray &ray) const;
     void drawScene();
+    QColor calcColor(const Geometry::Ray &normal) const;
+    void drawPoint(int x, int y, const Geometry::Ray &normal);
 protected:
     QGraphicsScene scene_;
     QGraphicsView view_;
+    QBrush brush_;
     std::vector<IGraphObject *> objects_;
     std::vector<Illuminant *> illuminants;
 };

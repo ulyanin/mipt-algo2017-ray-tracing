@@ -49,8 +49,13 @@ namespace Geometry
         return Point(x_ + p.x_, y_ + p.y_, z_ + p.z_);
     }
 
-    Point Point::operator-(const Point &p) const
+    Vector Point::operator-(const Point &p) const
     {
-        return Point(x_ - p.x_, y_ - p.y_, z_ - p.z_);
+        return Vector(x_ - p.x_, y_ - p.y_, z_ - p.z_);
+    }
+
+    bool Point::operator==(const Point &other) const
+    {
+        return Geometry::equal(Vector(other, *this).length2(), 0);
     }
 }

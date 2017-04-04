@@ -16,6 +16,7 @@ namespace Geometry
         explicit Vector(Float x = 0, Float y = 0, Float z = 0);
         explicit Vector(const Point &point);
         Vector(const Point &begin, const Point &end);
+        Vector&operator+=(const Vector &other);
 //        Vector operator+(const Vector &other) const;
 //        Vector operator-(const Vector &other) const;
         Float dotProduct(const Vector &other) const;
@@ -26,7 +27,9 @@ namespace Geometry
         Vector norm() const;
         Vector enlarge(Float mul) const;
         Vector setLength(Float len) const;
+        Vector getProjection(const Vector &v) const;
         bool ortogonal(const Vector &other) const;
+        bool isNull() const;
 
     protected:
     };

@@ -82,4 +82,23 @@ namespace Geometry
         return Geometry::equal(this->dotProduct(other), 0);
     }
 
+    Vector &Vector::operator+=(const Vector &other)
+    {
+        x_ += other.x_;
+        y_ += other.y_;
+        z_ += other.z_;
+        return *this;
+    }
+
+    Vector Vector::getProjection(const Vector &v) const
+    {
+        return this->setLength(-this->dotProduct(v) / this->length2());
+    }
+
+    bool Vector::isNull() const
+    {
+        return Geometry::equal(length2(), 0);
+
+    }
+
 }

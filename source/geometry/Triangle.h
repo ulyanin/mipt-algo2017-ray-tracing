@@ -20,7 +20,7 @@ namespace Geometry
 
         bool intersection(const Ray &ray, Ray &normal) const;
 
-        bool inside(const Point &point) const;
+        virtual bool inside(const Point &point) const;
 
         static bool betweenVectors(const Point &A, const Point &B, const Point &C, const Point &point);
     protected:
