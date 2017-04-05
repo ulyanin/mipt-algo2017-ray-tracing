@@ -29,4 +29,13 @@ namespace Geometry {
                Triangle::betweenVectors(C_, D_, A_, point) &&
                Triangle::betweenVectors(D_, A_, B_, point);
     }
+
+    bool Quadrangle::intersection(const Ray &ray, Ray &normal) const
+    {
+        if (Triangle::intersection(ray, normal)) {
+            return true;
+        }
+        return Triangle(C_, D_, A_).intersection(ray, normal);
+    }
+
 }

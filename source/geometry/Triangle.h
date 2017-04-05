@@ -18,7 +18,7 @@ namespace Geometry
 
         Triangle(const Point &A, const Point &B, const Point &C);
 
-        bool intersection(const Ray &ray, Ray &normal) const;
+        virtual bool intersection(const Ray &ray, Ray &normal) const;
 
         virtual bool inside(const Point &point) const;
 
@@ -26,6 +26,7 @@ namespace Geometry
     protected:
         Point A_, B_, C_;
         Surface surface;
+        static constexpr Float TRIANGLE_EPS = 1e-8;
     };
 
 } //Geometry

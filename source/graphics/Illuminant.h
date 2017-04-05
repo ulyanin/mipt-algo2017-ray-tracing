@@ -11,10 +11,10 @@
 class Illuminant
 {
 public:
-    Illuminant(const Geometry::Point position);
+    Illuminant(const Geometry::Point position, Geometry::Float scale_factor=1000 * 50.0);
     Geometry::Ray getRayTo(const Geometry::Point &p) const;
-    static constexpr Geometry::Float SCALE_FACTOR = 200 * 1000.0;
 protected:
+    Geometry::Float SCALE_FACTOR = 1000 * 50.0;
     Geometry::Point position_;
 };
 

@@ -11,9 +11,9 @@
 
 namespace Geometry
 {
-    typedef double Float;
+    typedef long double Float;
 
-    const Float EPS = 1e-8;
+    const Float EPS = 1e-10;
 
     inline Float absGeomFloat(Float f)
     {

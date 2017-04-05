@@ -15,8 +15,12 @@ namespace Geometry {
     {
     public:
         Quadrangle();
+
         Quadrangle(const Point &A, const Point &B, const Point &C, const Point &D);
+
         virtual bool inside(const Point &point) const;
+
+        virtual bool intersection(const Ray &ray, Ray &normal) const;
     protected:
         Point D_;
     };

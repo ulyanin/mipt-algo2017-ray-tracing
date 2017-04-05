@@ -11,11 +11,16 @@
 #include <vector>
 #include "IGraphObject.h"
 #include "Illuminant.h"
+#include "../geometry/Quadrangle.h"
+#include "GraphScreen.h"
 
 class GraphScene
 {
 public:
     GraphScene(QObject * parent = Q_NULLPTR);
+    GraphScene(const GraphScreen &screen,
+               QObject * parent = Q_NULLPTR, int pixelSize=2);
+//    GraphScene(GraphScene &&movable) noexcept;
     void addObject(IGraphObject * object);
     void addIlluminant(Illuminant * illuminant);
     Geometry::Ray traceRay(const Geometry::Ray &ray) const;
@@ -26,6 +31,9 @@ protected:
     QGraphicsScene scene_;
     QGraphicsView view_;
     QBrush brush_;
+    int width_, height_;
+    GraphScreen screen_;
+    int pixelSize_ = 2;
     std::vector<IGraphObject *> objects_;
     std::vector<Illuminant *> illuminants;
 };

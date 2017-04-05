@@ -11,10 +11,10 @@
 #include <vector>
 #include <string>
 
-class parserObj
+class ParserObj
 {
 public:
-    parserObj(const std::string &path);
+    ParserObj(const std::string &path);
 
     void parseAll();
 
@@ -23,7 +23,7 @@ public:
 protected:
     std::string path_;
     std::vector<IGraphObject *> objects_;
-    std::vector<Geometry::Point> points;
+    std::vector<Geometry::Point> points_;
 
     static int getPointNumber(const std::string &word);
 };

@@ -13,6 +13,12 @@ namespace Geometry
             z_(z)
     {}
 
+    std::istream &operator>>(std::istream &is, Geometry::Point &point)
+    {
+        is >> point.x_ >> point.y_ >> point.z_;
+        return is;
+    }
+
     std::ostream &operator<<(std::ostream &os, const Geometry::Point &point)
     {
         os << "(" << point.x_ << " " << point.y_ << " " << point.z_ << ")";

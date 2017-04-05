@@ -25,6 +25,7 @@ namespace Geometry
         Float getX() const;
         Float getY() const;
         Float getZ() const;
+        friend std::istream&operator>>(std::istream &is, Point &point);
         friend std::ostream&operator<<(std::ostream &os, const Point &point);
     protected:
         Float x_, y_, z_;

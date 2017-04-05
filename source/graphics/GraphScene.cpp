@@ -11,6 +11,18 @@ GraphScene::GraphScene(QObject * parent) :
         view_(&scene_)
 {
     scene_.setBackgroundBrush(QColor(0, 0, 0));
+//    view_.setStyleSheet("background-color: transparent;");
+//    view_.setBackgroundBrush(QColor(0, 0, 100, 200));
+}
+
+GraphScene::GraphScene(const GraphScreen &screen,
+                       QObject * parent, int pixelSize) :
+        scene_(parent),
+        view_(&scene_),
+        screen_(screen),
+        pixelSize_(pixelSize)
+{
+    scene_.setBackgroundBrush(QColor(0, 0, 0));
 }
 
 void GraphScene::addObject(IGraphObject * object)
@@ -20,12 +32,16 @@ void GraphScene::addObject(IGraphObject * object)
 
 void GraphScene::drawScene()
 {
-    int width = 1000;
-    int height = 800;
-    for (int x = -50; x < width; ++x) {
-        for (int y = -50; y < height; ++y) {
-            Geometry::Ray ray(Geometry::Point(x, y, 0), Geometry::Vector(0, 0, 1));
+    Geometry::Vector normal = screen_.getNormal();
+    std::cerr << normal << std::endl;
+//    view_.show();
+    for (int x = 0; x < screen_.getResolutionWidth(); ++x) {
+        for (int y = 0; y < screen_.getResolutionHeight(); ++y) {
+            Geometry::Ray ray(screen_.getPoint(x, y), normal);
             drawPoint(x, y, traceRay(ray));
+        }
+        if (x % 10 == 0) {
+            std::cerr << x << std::endl;
         }
     }
     view_.show();
@@ -34,14 +50,16 @@ void GraphScene::drawScene()
 QColor GraphScene::calcColor(const Geometry::Ray &normal) const
 {
     Geometry::Vector vectorIntensity;
-    for (Illuminant* illuminant : illuminants) {
-        Geometry::Ray rayDirect = illuminant->getRayTo(normal.getBegin());
-        Geometry::Ray traced = traceRay(rayDirect);
-        if (traced.getDirect().isNull()) {
-            continue;
-        }
-        if (traced.getBegin() == normal.getBegin()) {
-            vectorIntensity += normal.getDirect().getProjection(rayDirect.getDirect());
+    if (!normal.getDirect().isNull()) {
+        for (Illuminant *illuminant : illuminants) {
+            Geometry::Ray rayDirect = illuminant->getRayTo(normal.getBegin());
+            Geometry::Ray traced = traceRay(rayDirect);
+            if (traced.getDirect().isNull()) {
+                continue;
+            }
+            if (traced.getBegin() == normal.getBegin()) {
+                vectorIntensity += normal.getDirect().getProjection(rayDirect.getDirect());
+            }
         }
     }
 //    std::cout << vectorIntensity.length2() << std::endl;
@@ -49,14 +67,18 @@ QColor GraphScene::calcColor(const Geometry::Ray &normal) const
     if (brightness < 0) {
         std::cerr << "wrong brightness" << std::endl;
     }
-    brightness = std::max(brightness, 0);
+//    brightness = std::max(brightness, 0);
     brightness = abs(brightness);
     return QColor(brightness, brightness, brightness);
 }
 
 void GraphScene::drawPoint(int x, int y, const Geometry::Ray &normal)
 {
-    scene_.addEllipse(x, -y, 1, 1, calcColor(normal), brush_);
+//    scene_.addEllipse(x, -y, 1, 1, calcColor(normal), brush_);
+    QColor color = std::move(calcColor(normal));
+    scene_.addRect(pixelSize_ * x, -pixelSize_ * y,
+                   pixelSize_, pixelSize_,
+                   color, QBrush(color));
 }
 
 Geometry::Ray GraphScene::traceRay(const Geometry::Ray &ray) const
