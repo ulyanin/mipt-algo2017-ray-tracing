@@ -20,7 +20,8 @@ GraphScene::GraphScene(const GraphScreen &screen,
         scene_(parent),
         view_(&scene_),
         screen_(screen),
-        pixelSize_(pixelSize)
+        pixelSize_(pixelSize),
+        kdTree_(objects_)
 {
     scene_.setBackgroundBrush(QColor(0, 0, 0));
 }

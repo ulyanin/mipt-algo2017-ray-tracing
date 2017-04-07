@@ -23,7 +23,7 @@ namespace Geometry
 
         bool intersection(const Ray &ray, Ray &normal) const;
 
-    private:
+    protected:
         Point c_;
         Float r_;
     };

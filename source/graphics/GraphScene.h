@@ -13,6 +13,7 @@
 #include "Illuminant.h"
 #include "../geometry/Quadrangle.h"
 #include "GraphScreen.h"
+#include "KDTree.h"
 
 class GraphScene
 {
@@ -34,6 +35,7 @@ protected:
     int width_, height_;
     GraphScreen screen_;
     int pixelSize_ = 2;
+    KDTree kdTree_;
     std::vector<IGraphObject *> objects_;
     std::vector<Illuminant *> illuminants;
 };

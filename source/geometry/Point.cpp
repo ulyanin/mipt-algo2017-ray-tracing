@@ -4,6 +4,7 @@
 
 #include "Point.h"
 #include "Vector.h"
+#include "BoundingBox.h"
 
 namespace Geometry
 {
@@ -64,4 +65,39 @@ namespace Geometry
     {
         return Geometry::equal(Vector(other, *this).length2(), 0);
     }
+
+
+    Float Point::getAxisCoordinate(int axisNumber) const
+    {
+        return Vector(x_, y_, z_).dotProduct(BoundingBox::AXISES[axisNumber]);
+    }
+
+    void Point::setX(const Float &xValue)
+    {
+        x_ = xValue;
+    }
+
+    void Point::setZ(const Float &zValue)
+    {
+        z_ = zValue;
+    }
+
+    void Point::setY(const Float &yValue)
+    {
+        y_ = yValue;
+    }
+
+    void Point::setAxis(int axisNumber, const Float &value)
+    {
+        if (axisNumber == 0) {
+            setX(value);
+        } else if (axisNumber == 1) {
+            setY(value);
+        } else if (axisNumber == 2) {
+            setZ(value);
+        } else {
+            throw std::invalid_argument("set axis");
+        }
+    }
+
 }

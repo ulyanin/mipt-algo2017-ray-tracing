@@ -18,7 +18,9 @@ public:
 
     GraphSphere(const Geometry::Point &center, const Geometry::Float radius);
 
-    virtual bool intersection(const Geometry::Ray &ray, Geometry::Ray &normal);
+    virtual bool intersection(const Geometry::Ray &ray, Geometry::Ray &normal) const;
+
+    virtual bool insideABox(const Geometry::BoundingBox &boundingBox) const;
 
 protected:
 };

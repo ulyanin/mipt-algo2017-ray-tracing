@@ -21,7 +21,9 @@ public:
                     const Geometry::Point &C,
                     const Geometry::Point &D);
 
-    virtual bool intersection(const Geometry::Ray &ray, Geometry::Ray &normal);
+    virtual bool intersection(const Geometry::Ray &ray, Geometry::Ray &normal) const ;
+
+    virtual bool insideABox(const Geometry::BoundingBox &boundingBox) const;
 
 protected:
 };

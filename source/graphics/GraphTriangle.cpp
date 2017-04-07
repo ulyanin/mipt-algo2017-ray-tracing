@@ -18,8 +18,16 @@ GraphTriangle::GraphTriangle(const Geometry::Point &A,
 
 }
 
-bool GraphTriangle::intersection(const Geometry::Ray &ray, Geometry::Ray &normal)
+bool GraphTriangle::intersection(const Geometry::Ray &ray, Geometry::Ray &normal) const
 {
     return Geometry::Triangle::intersection(ray, normal);
+}
+
+bool GraphTriangle::insideABox(const Geometry::BoundingBox &boundingBox) const
+{
+    return
+            boundingBox.isInside(A_) ||
+            boundingBox.isInside(B_) ||
+            boundingBox.isInside(C_);
 }
 
