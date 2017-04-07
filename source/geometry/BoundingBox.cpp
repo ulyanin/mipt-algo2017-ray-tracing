@@ -71,6 +71,26 @@ namespace Geometry
             midLeft = Point(pMax_.getX(), pMax_.getY(), coordinate);
             midRight = Point(pMin_.getX(), pMin_.getZ(), coordinate);
         }
+//        std::cerr << "____" << std::endl;
+//        std::cerr << pMin_ << "; " << pMax_ << std::endl;
+//        std::cerr << midLeft << "; " << midRight << std::endl;
+//        std::cerr << axis << " " << coordinate << std::endl;
+//        std::cerr << Vector(pMin_, midLeft) << std::endl;
+//        std::cerr << Vector(midRight, pMax_) << std::endl;
+        if (Vector(pMin_, midLeft).getX() < -1e-4)
+            throw std::invalid_argument("split negative x");
+        if (Vector(pMin_, midLeft).getY() < -1e-4)
+            throw std::invalid_argument("split negative y");
+        if (Vector(pMin_, midLeft).getZ() < -1e-4)
+            throw std::invalid_argument("split negative z");
+        if (Vector(midRight, pMax_).getX() < -1e-4)
+            throw std::invalid_argument("split negative x");
+        if (Vector(midRight, pMax_).getY() < -1e-4)
+            throw std::invalid_argument("split negative y");
+        if (Vector(midRight, pMax_).getZ() < -1e-4)
+            throw std::invalid_argument("split negative z");
+//        std::cout << Vector(pMin_, midLeft) << std::endl;
+//        std::cout << Vector(midRight, pMax_) << std::endl;
         return std::make_pair(BoundingBox(pMin_, midLeft),
                               BoundingBox(midRight, pMax_));
     }

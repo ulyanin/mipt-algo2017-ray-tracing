@@ -17,6 +17,8 @@ public:
 
     KDTree(std::vector<IGraphObject *> objects);
 
+    void setObjects(std::vector<IGraphObject *> objects);
+
     virtual ~KDTree();
 
     void build();

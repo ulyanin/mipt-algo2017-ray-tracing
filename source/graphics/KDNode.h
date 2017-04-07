@@ -31,7 +31,7 @@ protected:
     std::vector<IGraphObject *> sortedObjects_[3];
 
     static const int MAX_DEPTH = 20;
-    static const int MIN_OBJECT_NUMBER = 1;
+    static const int MIN_OBJECT_NUMBER = 20;
 
     void doSortObjects_();
 };

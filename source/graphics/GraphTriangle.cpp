@@ -7,7 +7,6 @@
 GraphTriangle::GraphTriangle() :
     Triangle()
 {
-
 }
 
 GraphTriangle::GraphTriangle(const Geometry::Point &A,
@@ -15,7 +14,7 @@ GraphTriangle::GraphTriangle(const Geometry::Point &A,
                              const Geometry::Point &C) :
         Triangle(A, B, C)
 {
-
+    boundingBox_ = {A_, B_, C_};
 }
 
 bool GraphTriangle::intersection(const Geometry::Ray &ray, Geometry::Ray &normal) const

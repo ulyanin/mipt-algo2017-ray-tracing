@@ -19,6 +19,8 @@ public:
     virtual Geometry::Float getMinimumAlongAxis(int axisNumber) const;
 
     virtual Geometry::Float getMaximumAlongAxis(int axisNumber) const;
+    
+    virtual Geometry::BoundingBox getBoundingBox() const;
 
 protected:
     Geometry::BoundingBox boundingBox_;

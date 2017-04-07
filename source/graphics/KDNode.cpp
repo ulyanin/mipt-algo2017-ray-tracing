@@ -37,19 +37,24 @@ void KDNode::buildTree(const Geometry::BoundingBox &boundingBox, int depth)
     doSortObjects_();
 
     if (objects_.size() <= MIN_OBJECT_NUMBER || depth >= MAX_DEPTH) {
+//        std::cout << depth << std::endl;
         return;
     }
 
     auto pairBox = chooseSplit();
-
+    std::cout << depth << std::endl;
+    std::cout << pairBox.first.getPMax() - pairBox.first.getPMin() << std::endl;
+    std::cout << pairBox.second.getPMax() - pairBox.second.getPMin() << std::endl;
     std::vector<IGraphObject *> leftList;
     std::vector<IGraphObject *> rightList;
     for (IGraphObject * objectPtr : objects_) {
         if (objectPtr->insideABox(pairBox.first)) {
             leftList.push_back(objectPtr);
         }
-        if (objectPtr->insideABox(pairBox.second)) {
+        else if (objectPtr->insideABox(pairBox.second)) {
             rightList.push_back(objectPtr);
+        } else {
+            throw std::runtime_error("object does not have someplace");
         }
     }
     left_ = new KDNode(leftList);
@@ -68,9 +73,20 @@ std::pair<Geometry::BoundingBox, Geometry::BoundingBox> KDNode::chooseSplit()
     for (int axis = 0; axis < 3; ++axis) {
         for (size_t leftNumber = 0; leftNumber < sortedObjects_[axis].size(); ++leftNumber) {
             size_t rightNumber = sortedObjects_[axis].size() - leftNumber;
+            /*
+             * means that this object intersect neighbour
+             * bounding box, so, his leftest border is lefter
+             * then our left bounding box border
+             */
+            if (!boundingBox_.isInside(
+                    sortedObjects_[axis][leftNumber]->getBoundingBox().getPMin())
+                    ) {
+                continue;
+            }
             auto boxPair = boundingBox_.split(
                     axis,
-                    sortedObjects_[axis][leftNumber]->getMinimumAlongAxis(axis) - Geometry::EPS);
+                    sortedObjects_[axis][leftNumber]->getMinimumAlongAxis(axis));
+
             Geometry::Float leftFunc = leftNumber * boxPair.first.getSurfaceArea();
             Geometry::Float rightFunc = rightNumber * boxPair.second.getSurfaceArea();
             if (minFunc < 0 || leftFunc + rightFunc < minFunc) {
@@ -106,11 +122,19 @@ bool KDNode::traceRay(const Geometry::Ray &ray, Geometry::Ray &normal)
         return false;
     }
     if (isLeaf()) {
-        for (IGraphObject * objectPtr : objects_) {
-            if (objectPtr->intersection(ray, normal))
-                return true;
+        Geometry::Ray normalNearest;
+        bool wasIntersection = false;
+        for (IGraphObject * obj : objects_) {
+            if (obj->intersection(ray, normal)) {
+                if (!wasIntersection || Geometry::Vector(normal.getBegin(), ray.getBegin()).length2() <
+                                        Geometry::Vector(normalNearest.getBegin(), ray.getBegin()).length2()) {
+                    wasIntersection = true;
+                    normalNearest = normal;
+                }
+            }
         }
-        return false;
+        normal = normalNearest;
+        return wasIntersection;
     }
     if (ray.getDirect().getAxisCoordinate(axis_) > 0) {
         // ray : -- >

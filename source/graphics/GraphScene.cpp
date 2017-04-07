@@ -20,8 +20,7 @@ GraphScene::GraphScene(const GraphScreen &screen,
         scene_(parent),
         view_(&scene_),
         screen_(screen),
-        pixelSize_(pixelSize),
-        kdTree_(objects_)
+        pixelSize_(pixelSize)
 {
     scene_.setBackgroundBrush(QColor(0, 0, 0));
 }
@@ -33,6 +32,8 @@ void GraphScene::addObject(IGraphObject * object)
 
 void GraphScene::drawScene()
 {
+    kdTree_.setObjects(objects_);
+    kdTree_.build();
     Geometry::Vector normal = screen_.getNormal();
     std::cerr << normal << std::endl;
 //    view_.show();
@@ -85,6 +86,11 @@ void GraphScene::drawPoint(int x, int y, const Geometry::Ray &normal)
 Geometry::Ray GraphScene::traceRay(const Geometry::Ray &ray) const
 {
     Geometry::Ray nearest;
+    Geometry::Ray traced;
+    if (!kdTree_.traceRay(ray, traced)) {
+        traced = Geometry::Ray();
+    }
+//    return nearest;
     bool wasIntersection = false;
     for (IGraphObject * obj : objects_) {
         Geometry::Ray normal;
@@ -95,6 +101,12 @@ Geometry::Ray GraphScene::traceRay(const Geometry::Ray &ray) const
                 nearest = normal;
             }
         }
+    }
+    if (!(traced.getBegin() == nearest.getBegin())) {
+        std::cerr << "traced: " << std::endl;
+        std::cerr << traced.getBegin() << " " << traced.getDirect() << std::endl;
+        std::cerr << "stupid:" << std::endl;
+        std::cerr << nearest.getBegin() << " " << nearest.getDirect() << std::endl;
     }
     return nearest;
 }

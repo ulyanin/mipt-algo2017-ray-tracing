@@ -13,3 +13,8 @@ Geometry::Float IGraphObject::getMaximumAlongAxis(int axisNumber) const
             Geometry::BoundingBox::AXISES[axisNumber]
     );
 }
+
+Geometry::BoundingBox IGraphObject::getBoundingBox() const
+{
+    return boundingBox_;
+}
