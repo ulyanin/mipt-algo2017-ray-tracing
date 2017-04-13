@@ -24,8 +24,17 @@ inline GraphScreen screenFemale()
             Geometry::Point(5, 3.5, 0.5),
             Geometry::Vector(0, 0, -1).setLength(1),
             Geometry::Vector(0, 1, 0).setLength(1),
-            90, 90);
+            800, 800);
 }
+inline GraphScreen screenDog()
+{
+    return GraphScreen(
+            Geometry::Point(2.1, -0.5, 4),
+            Geometry::Vector(1, 0, -1).setLength(5),
+            Geometry::Vector(0, 1, 0).setLength(4),
+            50 * 5 * 5, 50 * 5 * 4);
+}
+
 
 inline GraphScreen screenTree()
 {
@@ -50,7 +59,7 @@ inline GraphScreen screenWolf2()
             Geometry::Point(-100, -30, 100) + Geometry::Vector(-1, 0, -1).setLength(150),
             Geometry::Vector(1, 0, 1).setLength(400),
             Geometry::Vector(0, 1, 0).setLength(300),
-            90 * 4 / 3 * 1, 90 * 1);
+            90 * 4 / 3 * 5, 90 * 5);
 }
 
 int main(int argv, char **args)
@@ -58,7 +67,7 @@ int main(int argv, char **args)
 
     auto start = std::chrono::system_clock::now();
     QApplication app(argv, args);
-    GraphScene scene(screenWolf(),
+    GraphScene scene(screenDog(),
                      &app,
                      1);
 //    GraphScene scene(GraphScreen(
@@ -81,17 +90,22 @@ int main(int argv, char **args)
 //    scene.addIlluminant(new Illuminant(Geometry::Point(60, 0, 0)));
 //    scene.addIlluminant(new Illuminant(Geometry::Point(0, 0, 200)));\
 
-    scene.addIlluminant(new Illuminant(Geometry::Point(-200, 200, -300), 1000 * 100.0));
-    scene.addIlluminant(new Illuminant(Geometry::Point(0, 200, 300), 1000 * 70.0));
+//    scene.addIlluminant(new Illuminant(Geometry::Point(-200, 200, -300), 1000 * 100.0));
+//    scene.addIlluminant(new Illuminant(Geometry::Point(0, 200, 300), 1000 * 70.0));
 
-//    scene.addIlluminant(new Illuminant(Geometry::Point(0, 10, -0.5)));
+//    scene.addIlluminant(new Illuminant(Geometry::Point(5, 100, 10)));
+//    scene.addIlluminant(new Illuminant(Geometry::Point(100, 100, 10)));
+    scene.addIlluminant(new Illuminant(Geometry::Point(-20, 2, 20), 800));
+//    scene.addIlluminant(new Illuminant(Geometry::Point(-10, 2, -10)));
+    scene.addIlluminant(new Illuminant(Geometry::Point(20, 2, -20), 800));
+//    scene.addIlluminant(new Illuminant(Geometry::Point(10, 2, 10)));
 //    scene.addIlluminant(new Illuminant(Geometry::Point(0, w, -dist_ill)));
 //    scene.addIlluminant(new Illuminant(Geometry::Point(w, w, -dist_ill)));
 //    scene.addIlluminant(new Illuminant(Geometry::Point(w, 0, -dist_ill)));
-    scene.addIlluminant(new Illuminant(Geometry::Point(0, 0, -100)));
+//    scene.addIlluminant(new Illuminant(Geometry::Point(100, 300, 0)));
 
 
-    ParserObj parser("./models/Wolf.obj");
+    ParserObj parser(args[1]);
     parser.parseAll();
     std::vector<IGraphObject *> objects = parser.getObjects();
     std::cerr << objects.size() << std::endl;
@@ -105,6 +119,7 @@ int main(int argv, char **args)
 //    KDTree kdTree(objects);
 //    kdTree.build();
 //    Geometry::Ray normal;
+//    std::cout << "begin test" << std::endl;
 //    std::cout << kdTree.traceRay(Geometry::Ray(Geometry::Point(1.5, 0.5, 0.5), Geometry::Vector(-1, 0, 0)), normal) << std::endl;
 //    std::cout << normal.getBegin() << std::endl;
 //    std::cout << normal.getDirect() << std::endl;

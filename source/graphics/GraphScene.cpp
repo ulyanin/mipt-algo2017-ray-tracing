@@ -11,8 +11,6 @@ GraphScene::GraphScene(QObject * parent) :
         view_(&scene_)
 {
     scene_.setBackgroundBrush(QColor(0, 0, 0));
-//    view_.setStyleSheet("background-color: transparent;");
-//    view_.setBackgroundBrush(QColor(0, 0, 100, 200));
 }
 
 GraphScene::GraphScene(const GraphScreen &screen,
@@ -85,12 +83,14 @@ void GraphScene::drawPoint(int x, int y, const Geometry::Ray &normal)
 
 Geometry::Ray GraphScene::traceRay(const Geometry::Ray &ray) const
 {
-    Geometry::Ray nearest;
     Geometry::Ray traced;
     if (!kdTree_.traceRay(ray, traced)) {
         traced = Geometry::Ray();
     }
-//    return nearest;
+
+    Geometry::Ray nearest;
+    return traced;
+
     bool wasIntersection = false;
     for (IGraphObject * obj : objects_) {
         Geometry::Ray normal;
@@ -107,6 +107,13 @@ Geometry::Ray GraphScene::traceRay(const Geometry::Ray &ray) const
         std::cerr << traced.getBegin() << " " << traced.getDirect() << std::endl;
         std::cerr << "stupid:" << std::endl;
         std::cerr << nearest.getBegin() << " " << nearest.getDirect() << std::endl;
+        for (IGraphObject * obj : objects_) {
+            Geometry::Ray normal;
+            if (obj->intersection(ray, normal) && normal.getBegin() == nearest.getBegin()) {
+                std::cerr << obj << obj->getBoundingBox().getPMin() << " "<< obj->getBoundingBox().getPMax() << std::endl;
+            }
+        }
+        kdTree_.traceRay(ray, traced);
     }
     return nearest;
 }

@@ -19,6 +19,7 @@ public:
     bool traceRay(const Geometry::Ray &ray, Geometry::Ray &normal);
     void buildTree(const Geometry::BoundingBox &boundingBox, int depth=0);
     bool isLeaf() const;
+    bool stupidIntersection(const Geometry::Ray &ray, Geometry::Ray &normal) const;
     virtual ~KDNode();
     std::pair<Geometry::BoundingBox, Geometry::BoundingBox> chooseSplit();
 
@@ -26,14 +27,17 @@ protected:
     KDNode * left_;
     KDNode * right_;
     int axis_;
+    Geometry::Float splitedCoordinate;
     std::vector<IGraphObject *> objects_;
     Geometry::BoundingBox boundingBox_;
-    std::vector<IGraphObject *> sortedObjects_[3];
+    std::vector<IGraphObject *> sortedObjectsMin_[3];
+    std::vector<IGraphObject *> sortedObjectsMax_[3];
 
     static const int MAX_DEPTH = 20;
     static const int MIN_OBJECT_NUMBER = 20;
 
     void doSortObjects_();
+    const char * whereIs(const Geometry::Point &P) const;
 };
 
 

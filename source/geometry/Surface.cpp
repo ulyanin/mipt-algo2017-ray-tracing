@@ -44,4 +44,11 @@ namespace Geometry
         D_(0)
     { }
 
+    Surface::Surface(const Point &p, const Vector &normal) :
+            normal_(normal),
+            D_(-normal.dotProduct(Vector(p)))
+    {
+
+    }
+
 }

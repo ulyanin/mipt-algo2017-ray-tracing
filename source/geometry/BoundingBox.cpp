@@ -69,7 +69,7 @@ namespace Geometry
             midRight = Point(pMin_.getX(), coordinate, pMin_.getZ());
         } else {
             midLeft = Point(pMax_.getX(), pMax_.getY(), coordinate);
-            midRight = Point(pMin_.getX(), pMin_.getZ(), coordinate);
+            midRight = Point(pMin_.getX(), pMin_.getY(), coordinate);
         }
 //        std::cerr << "____" << std::endl;
 //        std::cerr << pMin_ << "; " << pMax_ << std::endl;
@@ -89,11 +89,22 @@ namespace Geometry
             throw std::invalid_argument("split negative y");
         if (Vector(midRight, pMax_).getZ() < -1e-4)
             throw std::invalid_argument("split negative z");
-//        std::cout << Vector(pMin_, midLeft) << std::endl;
-//        std::cout << Vector(midRight, pMax_) << std::endl;
+//        std::cerr << Vector(pMin_, midLeft) << std::endl;
+//        std::cerr << Vector(midRight, pMax_) << std::endl;
+//        std::cerr << "vol: " << getVolume() << " "
+//                  << BoundingBox(pMin_, midLeft).getVolume() << " " <<  BoundingBox(midRight, pMax_).getVolume() << std::endl;
         return std::make_pair(BoundingBox(pMin_, midLeft),
                               BoundingBox(midRight, pMax_));
     }
+
+    Float BoundingBox::getVolume() const
+    {
+        Float xLen = getLengthAlongAxis(0);
+        Float yLen = getLengthAlongAxis(1);
+        Float zLen = getLengthAlongAxis(2);
+        return xLen * yLen * zLen;
+
+    };
 
     Float BoundingBox::getSurfaceArea() const
     {
@@ -106,13 +117,14 @@ namespace Geometry
     bool BoundingBox::isInside(const Point &p) const
     {
         return
-                pMin_.getX() <= p.getX() && p.getX() <= pMax_.getX() &&
-                pMin_.getY() <= p.getY() && p.getY() <= pMax_.getY() &&
-                pMin_.getZ() <= p.getZ() && p.getZ() <= pMax_.getZ();
+                pMin_.getX() - EPS <= p.getX() && p.getX() <= pMax_.getX() + EPS &&
+                pMin_.getY() - EPS <= p.getY() && p.getY() <= pMax_.getY() + EPS &&
+                pMin_.getZ() - EPS <= p.getZ() && p.getZ() <= pMax_.getZ() + EPS;
     }
 
     bool BoundingBox::intersection(const Ray &ray, Ray &normal) const
     {
+        /*
         Point points[2] = {pMin_, pMax_};
         int projection[6][4][3] = {
                 { {0, 0, 0}, {0, 0, 1}, {0, 1, 1}, {0, 1, 0} },
@@ -141,8 +153,21 @@ namespace Geometry
             if (quadrangle.intersection(ray, normal)) {
                 return true;
             }
+        }*/
+        Surface surface[6] = {
+                Surface(pMin_, AXISES[0]),
+                Surface(pMin_, AXISES[1]),
+                Surface(pMin_, AXISES[2]),
+                Surface(pMax_, AXISES[0]),
+                Surface(pMax_, AXISES[1]),
+                Surface(pMax_, AXISES[2])
+        };
+        for (int i = 0; i < 6; ++i) {
+            if (surface[i].intersection(ray, normal) && isInside(normal.getBegin())) {
+                return true;
+            }
         }
         return false;
-    };
+    }
 
 }

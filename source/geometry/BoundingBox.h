@@ -33,6 +33,8 @@ namespace Geometry
         static std::array<Geometry::Vector, 3> AXISES;
 
         Float getSurfaceArea() const;
+        Float getVolume() const;
+
 
         bool isInside(const Point &p) const;
 

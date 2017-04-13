@@ -16,6 +16,7 @@ namespace Geometry
     public:
         Surface();
         Surface(const Point &p1, const Point &p2, const Point &p3);
+        Surface(const Point &p, const Vector &normal);
         bool intersection(const Ray &ray, Ray &normal) const;
         Float orientedDist(const Point &point) const;
         bool onSurface(const Point &p) const;
