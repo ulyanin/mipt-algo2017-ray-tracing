@@ -11,8 +11,10 @@ GraphTriangle::GraphTriangle() :
 
 GraphTriangle::GraphTriangle(const Geometry::Point &A,
                              const Geometry::Point &B,
-                             const Geometry::Point &C) :
-        Triangle(A, B, C)
+                             const Geometry::Point &C,
+                             const GraphMaterial &material) :
+        Triangle(A, B, C),
+        material_(material)
 {
     boundingBox_ = {A_, B_, C_};
 }

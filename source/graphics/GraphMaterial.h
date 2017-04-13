@@ -11,7 +11,7 @@
 class GraphMaterial
 {
 public:
-    GraphMaterial(const std::string &name);
+    GraphMaterial(const std::string &name="");
 
     GraphMaterial(const std::string &name,
                   const GraphColor &color,

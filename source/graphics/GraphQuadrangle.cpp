@@ -14,8 +14,10 @@ GraphQuadrangle::GraphQuadrangle() :
 GraphQuadrangle::GraphQuadrangle(const Geometry::Point &A,
                                  const Geometry::Point &B,
                                  const Geometry::Point &C,
-                                 const Geometry::Point &D) :
-        Quadrangle(A, B, C, D)
+                                 const Geometry::Point &D,
+                                 const GraphMaterial &material) :
+        Quadrangle(A, B, C, D),
+        material_(material)
 {
     boundingBox_ = {A_, B_, C_, D_};
 }
