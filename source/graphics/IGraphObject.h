@@ -8,6 +8,8 @@
 #include <vector>
 #include "../geometry/Ray.h"
 #include "../geometry/BoundingBox.h"
+#include "GraphMaterial.h"
+
 
 class IGraphObject
 {
@@ -24,6 +26,7 @@ public:
 
 protected:
     Geometry::BoundingBox boundingBox_;
+    GraphMaterial material_;
 };
 
 

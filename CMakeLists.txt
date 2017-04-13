@@ -28,6 +28,6 @@ set(SOURCE_FILES source/main.cpp source/main.cpp
         source/graphics/KDTree.h source/graphics/KDTree.cpp
         source/graphics/KDNode.cpp source/graphics/KDNode.h
         source/geometry/BoundingBox.cpp source/geometry/BoundingBox.h
-        source/graphics/IGraphObject.cpp)
+        source/graphics/IGraphObject.cpp source/graphics/GraphMaterial.cpp source/graphics/GraphMaterial.h source/graphics/GraphColor.cpp source/graphics/GraphColor.h)
 add_executable(mipt-algo2017-ray-tracing ${SOURCE_FILES})
 target_link_libraries(mipt-algo2017-ray-tracing Qt5::Widgets)

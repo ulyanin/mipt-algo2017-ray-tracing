@@ -20,10 +20,6 @@ GraphQuadrangle::GraphQuadrangle(const Geometry::Point &A,
     boundingBox_ = {A_, B_, C_, D_};
 }
 
-bool GraphQuadrangle::intersection(const Geometry::Ray &ray, Geometry::Ray &normal) const
-{
-    return Geometry::Quadrangle::intersection(ray, normal);
-}
 
 bool GraphQuadrangle::insideABox(const Geometry::BoundingBox &boundingBox) const
 {
@@ -32,5 +28,10 @@ bool GraphQuadrangle::insideABox(const Geometry::BoundingBox &boundingBox) const
             boundingBox.isInside(B_) ||
             boundingBox.isInside(C_) ||
             boundingBox.isInside(D_);
+}
+
+bool GraphQuadrangle::intersection(const Geometry::Ray &ray, Geometry::Ray &normal) const
+{
+    return Geometry::Quadrangle::intersection(ray, normal);
 }
 
