@@ -20,7 +20,7 @@ public:
                     const Geometry::Point &B,
                     const Geometry::Point &C,
                     const Geometry::Point &D,
-                    const GraphMaterial &material);
+                    const GraphMaterial &material = GraphMaterial());
 
     virtual bool intersection(const Geometry::Ray &ray, Geometry::Ray &normal) const ;
 

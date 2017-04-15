@@ -5,19 +5,17 @@
 #include "GraphTriangle.h"
 
 GraphTriangle::GraphTriangle() :
+    IGraphObject(),
     Triangle()
-{
-}
+{ }
 
 GraphTriangle::GraphTriangle(const Geometry::Point &A,
                              const Geometry::Point &B,
                              const Geometry::Point &C,
                              const GraphMaterial &material) :
-        Triangle(A, B, C),
-        material_(material)
-{
-    boundingBox_ = {A_, B_, C_};
-}
+        IGraphObject(Geometry::BoundingBox({ A, B, C }), material),
+        Triangle(A, B, C)
+{ }
 
 bool GraphTriangle::intersection(const Geometry::Ray &ray, Geometry::Ray &normal) const
 {

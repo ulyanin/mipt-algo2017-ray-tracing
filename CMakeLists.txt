@@ -4,10 +4,10 @@ project(mipt-algo2017-ray-tracing)
 set(CMAKE_CXX_STANDARD 14)
 find_package(Qt5Widgets REQUIRED)
 
-#IF(CMAKE_COMPILER_IS_GNUCC)
-#    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
-#    set(CMAKE_EXE_LINKER_FLAGS "-s")
-#ENDIF(CMAKE_COMPILER_IS_GNUCC)
+IF(CMAKE_COMPILER_IS_GNUCC)
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+    set(CMAKE_EXE_LINKER_FLAGS "-s")
+ENDIF(CMAKE_COMPILER_IS_GNUCC)
 
 set(SOURCE_FILES source/main.cpp source/main.cpp
         source/geometry/Vector.cpp source/geometry/Vector.h
@@ -28,6 +28,6 @@ set(SOURCE_FILES source/main.cpp source/main.cpp
         source/graphics/KDTree.h source/graphics/KDTree.cpp
         source/graphics/KDNode.cpp source/graphics/KDNode.h
         source/geometry/BoundingBox.cpp source/geometry/BoundingBox.h
-        source/graphics/IGraphObject.cpp source/graphics/GraphMaterial.cpp source/graphics/GraphMaterial.h source/graphics/GraphColor.cpp source/graphics/GraphColor.h)
+        source/graphics/IGraphObject.cpp source/graphics/GraphMaterial.cpp source/graphics/GraphMaterial.h source/graphics/GraphColor.cpp source/graphics/GraphColor.h source/parsers/ParserRT.cpp source/parsers/ParserRT.h)
 add_executable(mipt-algo2017-ray-tracing ${SOURCE_FILES})
 target_link_libraries(mipt-algo2017-ray-tracing Qt5::Widgets)

@@ -85,6 +85,7 @@ void KDNode::buildTree(const Geometry::BoundingBox &boundingBox, int depth)
 //            right.push_back(item);
         if (f == 0) {
             std::cout << depth << std::endl;
+            std::cout << (std::find(objects_.begin(), objects_.end(), objectPtr) - objects_.begin()) << std::endl;
             std::cout << boundingBox.getPMin() << " "<< boundingBox.getPMax() << std::endl;
             std::cout << pairBox.first.getPMin() << " "<< pairBox.first.getPMax() << std::endl;
             std::cout << pairBox.second.getPMin() <<" "<< pairBox.second.getPMax() << std::endl;

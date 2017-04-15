@@ -13,8 +13,8 @@ GraphSphere::GraphSphere() :
 GraphSphere::GraphSphere(const Geometry::Point &center,
                          const Geometry::Float r,
                          const GraphMaterial &material) :
-        Sphere(center, r),
-        material_(material)
+        IGraphObject({}, material),
+        Sphere(center, r)
 {
     Geometry::Vector rVector(r, r, r);
     boundingBox_ = Geometry::BoundingBox(center - rVector, center + rVector);

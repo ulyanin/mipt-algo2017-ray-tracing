@@ -14,6 +14,11 @@
 class IGraphObject
 {
 public:
+    IGraphObject();
+
+    IGraphObject(const Geometry::BoundingBox &boundingBox,
+                 const GraphMaterial &material);
+
     virtual bool intersection(const Geometry::Ray& ray, Geometry::Ray &normal) const = 0;
 
     virtual bool insideABox(const Geometry::BoundingBox &boundingBox) const = 0;

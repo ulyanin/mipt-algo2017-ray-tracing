@@ -18,3 +18,16 @@ Geometry::BoundingBox IGraphObject::getBoundingBox() const
 {
     return boundingBox_;
 }
+
+IGraphObject::IGraphObject() :
+        boundingBox_(Geometry::BoundingBox()),
+        material_(GraphMaterial())
+{ }
+
+IGraphObject::IGraphObject(const Geometry::BoundingBox &boundingBox,
+                           const GraphMaterial &material) :
+        boundingBox_(boundingBox),
+        material_(material)
+{
+
+}

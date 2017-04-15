@@ -6,21 +6,18 @@
 
 
 GraphQuadrangle::GraphQuadrangle() :
+    IGraphObject(),
     Quadrangle()
-{
-
-}
+{ }
 
 GraphQuadrangle::GraphQuadrangle(const Geometry::Point &A,
                                  const Geometry::Point &B,
                                  const Geometry::Point &C,
                                  const Geometry::Point &D,
                                  const GraphMaterial &material) :
-        Quadrangle(A, B, C, D),
-        material_(material)
-{
-    boundingBox_ = {A_, B_, C_, D_};
-}
+        IGraphObject(Geometry::BoundingBox({A, B, C, D}), material),
+        Quadrangle(A, B, C, D)
+{ }
 
 
 bool GraphQuadrangle::insideABox(const Geometry::BoundingBox &boundingBox) const

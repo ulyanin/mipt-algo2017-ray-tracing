@@ -67,7 +67,7 @@ int main(int argv, char **args)
 
     auto start = std::chrono::system_clock::now();
     QApplication app(argv, args);
-    GraphScene scene(screenDog(),
+    GraphScene scene(screenFemale(),
                      &app,
                      1);
 //    GraphScene scene(GraphScreen(
