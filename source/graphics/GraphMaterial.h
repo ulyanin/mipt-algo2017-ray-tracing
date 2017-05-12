@@ -30,6 +30,8 @@ protected:
     Geometry::Float reflect_;
 public:
     Geometry::Float getReflect() const;
+    Geometry::Float getRefract() const;
+    Geometry::Float getAlpha() const;
 
 protected:
     Geometry::Float refract_;

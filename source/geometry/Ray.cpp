@@ -44,6 +44,6 @@ namespace Geometry
         Vector proj = getDirect().getProjection(ray.getDirect());
         Vector direct = ray.getDirect();
         direct += proj.enlarge(2);
-        return Ray(getBegin() + direct.setLength(1e-1), direct);
+        return Ray(getBegin() + direct.setLength(1e-3), direct);
     }
 }

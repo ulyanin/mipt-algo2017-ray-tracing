@@ -50,6 +50,7 @@ void GraphScene::drawScene()
             Geometry::Ray traced = traceRay(ray, material);
             GraphColor color = calcColor(traced, material);
             Geometry::Float reflect = material.getReflect();
+            Geometry::Float alpha = material.getAlpha();
 
 //            reflect = 0;
 
@@ -60,15 +61,30 @@ void GraphScene::drawScene()
 //            std::cout << traced.getDirect().dotProduct(ray.getDirect()) << std::endl;
 //            std::cout << "!" << std::endl;
 //            std::cout <<  << std::endl;
-            Geometry::Ray traced_r;
-            GraphMaterial material_r;
-            GraphColor color_r;
+            Geometry::Ray traced_reflect;
+            GraphMaterial material_reflect;
+            GraphColor color_reflect;
             if (reflect > Geometry::EPS) {
-                traced_r = traceRay(ray_r, material_r);
-                color_r = calcColor(traced_r, material_r);
+                traced_reflect = traceRay(ray_r, material_reflect);
+                color_reflect = calcColor(traced_reflect, material_reflect);
             }
-            drawPoint(x, y, traced,
-                      color.enlarge(1 - reflect) + color_r.enlarge(reflect));
+
+            // alpha
+            Geometry::Ray ray_alpha(traced.getBegin() + ray.getDirect().setLength(1e-3),
+                                      ray.getDirect());
+            Geometry::Ray traced_alpha;
+            GraphMaterial material_alpha;
+            GraphColor color_alpha;
+            if (1 - alpha > Geometry::EPS) {
+                traced_alpha = traceRay(ray_alpha, material_alpha);
+                color_alpha = calcColor(traced_alpha, material_alpha);
+            }
+
+
+            color = color.enlarge(1 - reflect) + color_reflect.enlarge(reflect);
+            color = color.enlarge(alpha) + color_alpha.enlarge(1 - alpha);
+
+            drawPoint(x, y, traced, color);
         }
         if (x % 10 == 0) {
             std::cerr << x << std::endl;

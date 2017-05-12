@@ -45,6 +45,8 @@ const Geometry::Point &GraphScreen::getOrigin() const
 
 void GraphScreen::setResolution(int resolutionWidth, int resolutionHeight)
 {
+    xEdge_ = xEdge_.enlarge((Geometry::Float)resolutionWidth_ / resolutionWidth);
+    yEdge_ = yEdge_.enlarge((Geometry::Float)resolutionHeight_ / resolutionHeight);
     resolutionWidth_ = resolutionWidth;
     resolutionHeight_ = resolutionHeight;
 }

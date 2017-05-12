@@ -40,3 +40,13 @@ Geometry::Float GraphMaterial::getReflect() const
 {
     return reflect_;
 }
+
+Geometry::Float GraphMaterial::getRefract() const
+{
+    return refract_;
+}
+
+Geometry::Float GraphMaterial::getAlpha() const
+{
+    return alpha_;
+}
