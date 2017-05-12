@@ -31,3 +31,8 @@ IGraphObject::IGraphObject(const Geometry::BoundingBox &boundingBox,
 {
 
 }
+
+GraphMaterial IGraphObject::getMaterial() const
+{
+    return material_;
+}

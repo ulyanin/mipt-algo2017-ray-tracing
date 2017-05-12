@@ -23,9 +23,17 @@ public:
     GraphScreen(const GraphScreen &other) = default;
 
     Geometry::Point getPoint(int x, int y) const;
+
     int getResolutionWidth() const;
+
     int getResolutionHeight() const;
+
     Geometry::Vector getNormal() const;
+
+    const Geometry::Point &getOrigin() const;
+
+    void setResolution(int resolutionWidth, int resolutionHeight);
+
 protected:
     Geometry::Point origin_;
     Geometry::Point vertex_;

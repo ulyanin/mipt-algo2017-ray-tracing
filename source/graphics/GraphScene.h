@@ -24,11 +24,12 @@ public:
 //    GraphScene(GraphScene &&movable) noexcept;
     void addObject(IGraphObject * object);
     void addIlluminant(Illuminant * illuminant);
-    Geometry::Ray traceRay(const Geometry::Ray &ray) const;
+    Geometry::Ray traceRay(const Geometry::Ray &ray, GraphMaterial &material) const;
     void drawScene();
-    QColor calcColor(const Geometry::Ray &normal) const;
-    void drawPoint(int x, int y, const Geometry::Ray &normal);
+    GraphColor calcColor(const Geometry::Ray &normal, GraphMaterial &material) const;
+    void drawPoint(int x, int y, const Geometry::Ray &normal, const GraphColor &color);
     void setScreen(const GraphScreen &screen);
+    void setResolution(int resolutionWidth, int resolutionHeight);
 protected:
     QGraphicsScene scene_;
     QGraphicsView view_;

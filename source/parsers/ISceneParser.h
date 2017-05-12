@@ -14,7 +14,7 @@ class ISceneParser {
 
 protected:
 
-    GraphScene scene_;
+    GraphScene& scene_;
     GraphMaterialFactory materials_;
 
 public:
@@ -25,8 +25,7 @@ public:
             scene_(scene)
     {}
 
-    virtual void openScene(const std::string &filename,
-                           const std::string &directory) = 0;
+    virtual void openScene(const std::string &filename) = 0;
 
     virtual ~ISceneParser() { }
 };

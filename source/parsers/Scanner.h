@@ -89,7 +89,7 @@ public:
     StringScanner(const string &s) : stream(s) {}
 
     void setBuffer(const string &s) {
-        stream = stringstream(s);
+        stream = std::stringstream(s);
     }
 
     string nextString() {

@@ -9,23 +9,31 @@
 #include <QtWidgets/QGraphicsView>
 #include <chrono>
 #include "geometry/Vector.h"
-#include "geometry/Sphere.h"
 #include "graphics/GraphScene.h"
-#include "graphics/GraphSphere.h"
-#include "graphics/GraphTriangle.h"
-#include "graphics/GraphQuadrangle.h"
 #include "parsers/ParserObj.h"
-#include "graphics/KDTree.h"
+#include "parsers/RTFileParser.h"
 
 
 inline GraphScreen screenFemale()
 {
+    Geometry::Point A(5, 3.5, 0.5);
+    Geometry::Vector edgeX(0, 0, -1);
+    Geometry::Vector edgeY(0, 1, 0);
+    Geometry::Vector norm(1, 0, 0);
+    edgeX = edgeX.setLength(1);
+    edgeY = edgeY.setLength(1);
     return GraphScreen(
-            Geometry::Point(-1, 0.5, -0.5),
-            Geometry::Point(5, 3.5, 0.5),
-            Geometry::Vector(0, 0, -1).setLength(1),
-            Geometry::Vector(0, 1, 0).setLength(1),
-            800, 800);
+            A + edgeX.enlarge(0.5) + edgeY.enlarge(0.5) + norm.enlarge(1000),
+            A,
+            edgeX,
+            edgeY,
+            600, 600);
+//    return GraphScreen(
+//            Geometry::Point(),
+//            Geometry::Point(5, 3.5, 0.5),
+//            Geometry::Vector(0, 0, -1).setLength(1),
+//            Geometry::Vector(0, 1, 0).setLength(1),
+//            800, 800);
 }
 inline GraphScreen screenDog()
 {
@@ -135,7 +143,30 @@ int main_(int argv, char **args)
     return app.exec();
 }
 
-int main(int argv, char ** args)
+int main(int argc, char ** args)
 {
-    return main_(argv, args);
+    std::cout << std::fixed;
+    auto start = std::chrono::system_clock::now();
+    auto end = std::chrono::system_clock::now();
+    QApplication app(argc, args);
+
+    GraphScene scene(screenFemale(),
+                     &app,
+                     1);
+    RTFileParser rtFileParser(scene);
+    if (argc > 1) {
+        std::cout << "opening: " << args[1] << std::endl;
+        rtFileParser.openScene(args[1]);
+        end = std::chrono::system_clock::now();
+        std::cout << "reading done: " << std::chrono::duration<double>(end - start).count() << std::endl;
+        if (argc > 1) {
+            scene.setResolution(std::stoi(args[2]), std::stoi(args[3]));
+        }
+        scene.drawScene();
+    }
+    end = std::chrono::system_clock::now();
+    std::cout << std::chrono::duration<double>(end - start).count() << std::endl;
+    return app.exec();
+
+//    return main_(argc, args);
 }

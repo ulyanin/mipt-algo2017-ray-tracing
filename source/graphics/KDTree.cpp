@@ -49,9 +49,9 @@ void KDTree::build()
     root_->buildTree(boundingBox_);
 }
 
-bool KDTree::traceRay(const Geometry::Ray &ray, Geometry::Ray &normal) const
+bool KDTree::traceRay(const Geometry::Ray &ray, Geometry::Ray &normal, GraphMaterial &material) const
 {
-    return root_->traceRay(ray, normal);
+    return root_->traceRay(ray, normal, material);
 }
 
 void KDTree::setObjects(std::vector<IGraphObject *> objects)

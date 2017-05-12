@@ -101,4 +101,9 @@ namespace Geometry
 
     }
 
+//    Vector Vector::operator+(const Vector &other) const
+//    {
+//        return Vector(x_ + other.x_, y_ + other.y_, z_ + other.z_);
+//    }
+
 }

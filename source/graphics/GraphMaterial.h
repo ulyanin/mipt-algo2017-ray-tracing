@@ -6,6 +6,7 @@
 #define MIPT_ALGO2017_RAY_TRACING_GRAPHMATERIAL_H
 
 
+#include <QtGui/QColor>
 #include "GraphColor.h"
 
 class GraphMaterial
@@ -20,12 +21,17 @@ public:
                   const Geometry::Float &refract=1);
 
     const std::string &getName() const;
+    GraphColor getColor() const;
 
 protected:
     std::string name_;
     GraphColor color_;
     Geometry::Float alpha_;
     Geometry::Float reflect_;
+public:
+    Geometry::Float getReflect() const;
+
+protected:
     Geometry::Float refract_;
 };
 

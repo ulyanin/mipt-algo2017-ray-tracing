@@ -211,7 +211,8 @@ void KDNode::doSortObjects_()
 
 
 
-bool KDNode::stupidIntersection(const Geometry::Ray &ray, Geometry::Ray &normal) const
+bool KDNode::stupidIntersection(const Geometry::Ray &ray, Geometry::Ray &normal,
+                                GraphMaterial & material) const
 {
     Geometry::Ray normalNearest;
     bool wasIntersection = false;
@@ -221,6 +222,7 @@ bool KDNode::stupidIntersection(const Geometry::Ray &ray, Geometry::Ray &normal)
                                     Geometry::Vector(normalNearest.getBegin(), ray.getBegin()).length2()) {
                 wasIntersection = true;
                 normalNearest = normal;
+                material = obj->getMaterial();
             }
         }
     }
@@ -228,20 +230,20 @@ bool KDNode::stupidIntersection(const Geometry::Ray &ray, Geometry::Ray &normal)
     return wasIntersection;
 }
 
-bool KDNode::traceRay(const Geometry::Ray &ray, Geometry::Ray &normal)
+bool KDNode::traceRay(const Geometry::Ray &ray, Geometry::Ray &normal, GraphMaterial &material)
 {
     if (!boundingBox_.intersection(ray, normal)) {
         return false;
     }
     if (isLeaf()) {
-        return stupidIntersection(ray, normal);
+        return stupidIntersection(ray, normal, material);
     }
     if (ray.getDirect().getAxisCoordinate(axis_) > 0) {
         // ray : -- >
-        return left_->traceRay(ray, normal) || right_->traceRay(ray, normal);
+        return left_->traceRay(ray, normal, material) || right_->traceRay(ray, normal, material);
     }
     // ray : < --
-    return right_->traceRay(ray, normal) || left_->traceRay(ray, normal);
+    return right_->traceRay(ray, normal, material) || left_->traceRay(ray, normal, material);
 
 }
 

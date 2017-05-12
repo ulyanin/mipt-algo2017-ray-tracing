@@ -16,10 +16,11 @@ public:
     void setLeft(KDNode * left);
     void setRight(KDNode * right);
     void setAxis(int axisNumber);
-    bool traceRay(const Geometry::Ray &ray, Geometry::Ray &normal);
+    bool traceRay(const Geometry::Ray &ray, Geometry::Ray &normal, GraphMaterial &material);
     void buildTree(const Geometry::BoundingBox &boundingBox, int depth=0);
     bool isLeaf() const;
-    bool stupidIntersection(const Geometry::Ray &ray, Geometry::Ray &normal) const;
+    bool stupidIntersection(const Geometry::Ray &ray, Geometry::Ray &normal,
+                            GraphMaterial &material) const;
     virtual ~KDNode();
     std::pair<Geometry::BoundingBox, Geometry::BoundingBox> chooseSplit();
 

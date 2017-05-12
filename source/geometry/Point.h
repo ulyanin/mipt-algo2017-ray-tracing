@@ -21,7 +21,7 @@ namespace Geometry
         Point operator+(const Point &p) const;
         Vector operator-(const Point &p) const;
 
-        Point operator+(const Vector &v) const;
+        virtual Point operator+(const Vector &v) const;
         Point operator-(const Vector &v) const;
 
         bool operator==(const Point &other) const;

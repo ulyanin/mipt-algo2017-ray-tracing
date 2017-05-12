@@ -30,3 +30,13 @@ const std::string &GraphMaterial::getName() const
 {
     return name_;
 }
+
+GraphColor GraphMaterial::getColor() const
+{
+    return color_;
+}
+
+Geometry::Float GraphMaterial::getReflect() const
+{
+    return reflect_;
+}

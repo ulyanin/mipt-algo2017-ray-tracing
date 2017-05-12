@@ -23,7 +23,8 @@ public:
 
     void build();
 
-    bool traceRay(const Geometry::Ray &ray, Geometry::Ray &normal) const;
+    bool traceRay(const Geometry::Ray &ray, Geometry::Ray &normal,
+                  GraphMaterial &material) const;
 
 protected:
 //    void buildBox_(KDNode * &node,

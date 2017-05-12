@@ -19,6 +19,7 @@ namespace Geometry
         void setBegin(const Point &begin);
         Vector getDirect() const;
         void setDirect(const Vector &direction);
+        Ray reflect(const Ray &ray) const;
     protected:
         Point p_;
         Vector v_;

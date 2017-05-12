@@ -38,4 +38,12 @@ namespace Geometry
     {
         v_ = direction;
     }
+
+    Ray Ray::reflect(const Ray &ray) const
+    {
+        Vector proj = getDirect().getProjection(ray.getDirect());
+        Vector direct = ray.getDirect();
+        direct += proj.enlarge(2);
+        return Ray(getBegin() + direct.setLength(1e-1), direct);
+    }
 }

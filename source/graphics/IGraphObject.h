@@ -29,6 +29,8 @@ public:
     
     virtual Geometry::BoundingBox getBoundingBox() const;
 
+    virtual GraphMaterial getMaterial() const;
+
 protected:
     Geometry::BoundingBox boundingBox_;
     GraphMaterial material_;

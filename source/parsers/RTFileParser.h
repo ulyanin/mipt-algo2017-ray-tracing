@@ -19,7 +19,7 @@
 
 using namespace Geometry;
 
-class RT_file : public ISceneParser {
+class RTFileParser : public ISceneParser {
 
 protected:
     void checkEofScanner(FileScanner &scanner, const string &group) {
@@ -82,8 +82,8 @@ protected:
             }
         }
         scene_.setScreen(GraphScreen(origin, bottomLeft,
-                                     Vector(topRight, topLeft),
-                                     Vector(topLeft, bottomLeft)));
+                                     Vector(topLeft, topRight),
+                                     Vector(bottomLeft, topLeft)));
     }
 
     virtual void materialsSection(FileScanner &scanner) {
@@ -360,13 +360,13 @@ protected:
 
 
 public:
-    RT_file() = delete;
+    RTFileParser() = delete;
 
-    RT_file(GraphScene &scene)
+    RTFileParser(GraphScene &scene)
             : ISceneParser(scene) {}
 
-    void openScene(const string &filename, const string &directory) override {
-        parseFile(directory + filename);
+    void openScene(const string &filename) override {
+        parseFile(filename);
     }
 
 };

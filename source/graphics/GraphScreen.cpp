@@ -38,5 +38,16 @@ Geometry::Vector GraphScreen::getNormal() const
     return yEdge_.crossProduct(xEdge_).norm();
 }
 
+const Geometry::Point &GraphScreen::getOrigin() const
+{
+    return origin_;
+}
+
+void GraphScreen::setResolution(int resolutionWidth, int resolutionHeight)
+{
+    resolutionWidth_ = resolutionWidth;
+    resolutionHeight_ = resolutionHeight;
+}
+
 
 

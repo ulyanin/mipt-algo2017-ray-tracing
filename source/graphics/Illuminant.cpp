@@ -14,7 +14,7 @@ Illuminant::Illuminant(const Geometry::Point position, Geometry::Float scale_fac
 Geometry::Ray Illuminant::getRayTo(const Geometry::Point &p) const
 {
     Geometry::Vector v(position_, p);
-    v = v.setLength(SCALE_FACTOR / v.length2());
-//    v = v.setLength(1);
+//    v = v.setLength(SCALE_FACTOR / v.length2());
+    v = v.setLength(1);
     return Geometry::Ray(position_, v);
 }
