@@ -19,6 +19,8 @@ public:
                   const Geometry::Float &reflect=0,
                   const Geometry::Float &refract=1);
 
+    const std::string &getName() const;
+
 protected:
     std::string name_;
     GraphColor color_;

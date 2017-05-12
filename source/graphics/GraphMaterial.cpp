@@ -25,3 +25,8 @@ GraphMaterial::GraphMaterial(const std::string &name, const GraphColor &color,
 {
 
 }
+
+const std::string &GraphMaterial::getName() const
+{
+    return name_;
+}

@@ -122,3 +122,8 @@ void GraphScene::addIlluminant(Illuminant *illuminant)
 {
     illuminants.push_back(illuminant);
 }
+
+void GraphScene::setScreen(const GraphScreen &screen)
+{
+    screen_ = screen;
+}

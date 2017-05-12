@@ -21,6 +21,7 @@
 inline GraphScreen screenFemale()
 {
     return GraphScreen(
+            Geometry::Point(-1, 0.5, -0.5),
             Geometry::Point(5, 3.5, 0.5),
             Geometry::Vector(0, 0, -1).setLength(1),
             Geometry::Vector(0, 1, 0).setLength(1),
@@ -29,6 +30,7 @@ inline GraphScreen screenFemale()
 inline GraphScreen screenDog()
 {
     return GraphScreen(
+            Geometry::Point(),
             Geometry::Point(2.1, -0.5, 4),
             Geometry::Vector(1, 0, -1).setLength(5),
             Geometry::Vector(0, 1, 0).setLength(4),
@@ -39,6 +41,7 @@ inline GraphScreen screenDog()
 inline GraphScreen screenTree()
 {
     return GraphScreen(
+            Geometry::Point(),
             Geometry::Point(-5, -5, 10),
             Geometry::Vector(1, 0, 0).setLength(10),
             Geometry::Vector(0, 1, 0).setLength(10),
@@ -48,6 +51,7 @@ inline GraphScreen screenTree()
 inline GraphScreen screenWolf()
 {
     return GraphScreen(
+            Geometry::Point(),
             Geometry::Point(-60, -30, 200),
             Geometry::Vector(1, 0, 0).setLength(150),
             Geometry::Vector(0, 1, 0).setLength(300),
@@ -56,13 +60,15 @@ inline GraphScreen screenWolf()
 inline GraphScreen screenWolf2()
 {
     return GraphScreen(
+            Geometry::Point(),
             Geometry::Point(-100, -30, 100) + Geometry::Vector(-1, 0, -1).setLength(150),
             Geometry::Vector(1, 0, 1).setLength(400),
             Geometry::Vector(0, 1, 0).setLength(300),
             90 * 4 / 3 * 5, 90 * 5);
 }
 
-int main(int argv, char **args)
+
+int main_(int argv, char **args)
 {
 
     auto start = std::chrono::system_clock::now();
@@ -127,4 +133,9 @@ int main(int argv, char **args)
     end = std::chrono::system_clock::now();
     std::cout << std::chrono::duration<double>(end - start).count() << std::endl;
     return app.exec();
+}
+
+int main(int argv, char ** args)
+{
+    return main_(argv, args);
 }

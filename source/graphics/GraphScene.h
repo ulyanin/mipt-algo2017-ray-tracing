@@ -28,6 +28,7 @@ public:
     void drawScene();
     QColor calcColor(const Geometry::Ray &normal) const;
     void drawPoint(int x, int y, const Geometry::Ray &normal);
+    void setScreen(const GraphScreen &screen);
 protected:
     QGraphicsScene scene_;
     QGraphicsView view_;

@@ -4,9 +4,11 @@
 
 #include "GraphScreen.h"
 
-GraphScreen::GraphScreen(const Geometry::Point &vertex,
+GraphScreen::GraphScreen(const Geometry::Point &origin,
+                         const Geometry::Point &vertex,
                          const Geometry::Vector xEdge, const Geometry::Vector yEdge,
                          int resolutionX, int resolutionY) :
+        origin_(origin),
         vertex_(vertex),
         xEdge_(xEdge.enlarge(1 / static_cast<Geometry::Float >(resolutionX))),
         yEdge_(yEdge.enlarge(1 / static_cast<Geometry::Float >(resolutionY))),

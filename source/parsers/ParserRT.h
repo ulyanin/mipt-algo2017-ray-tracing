@@ -1,7 +1,6 @@
 //
 // Created by ulyanin on 15.04.17.
 //
-
 #ifndef MIPT_ALGO2017_RAY_TRACING_PARSERT_H
 #define MIPT_ALGO2017_RAY_TRACING_PARSERT_H
 
